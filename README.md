@@ -363,5 +363,15 @@ Add this to .eslintrc.json
   "extends": ["plugin:prettier/recommended", "prettier/react"]
 }
 ```
+Add prettier config by creating .prettierrc
+
+```json
+{
+  "trailingComma": "es5",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true
+}
+```
 
 ## Testing
