@@ -111,3 +111,147 @@ module.exports = {
 }
 ```
 
+## Create a package
+
+We are now ready to create our first package. We start with something simple, an avatar component.
+
+From root level of the project run:
+
+```bash
+lerna create avatar
+```
+
+This will create a package folder named avatar under packages with this boilerplate structure:
+
+```bash
+packages/avatar
+  __test__
+  lib/avatar.js
+  README.md
+```
+
+The most important file now is the package.json file. We will have to make some changes to tell microbundler about the files that it should bundle.
+
+You must define this attributes:
+
+- __source__ - your source file (same as 1st arg to microbundle)
+- __main__ - output path for CommonJS/Node
+- __module__ - output path for JS Modules
+- __unpkg__ - optional, for unpkg.com
+
+>Microbundle uses __source__ and __main__ as input and output paths by default.
+
+Also change the __files__ attribute. This is used to tell __npm pulish__ which files to include in a published package. Delete the directories attribute as this is not used. (You can keep it if you like. It is used just for meta info).
+
+Add a __build__ and __watch__ script to the scripts attribute.
+
+Your package.json field should look like this now:
+
+```json
+{
+  "name": "avatar",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Bernt Anker <bernt.anker@rs.no>",
+  "homepage": "",
+  "license": "ISC",
+  "source": "src/avatar.js",
+  "main": "dist/avatar.js",
+  "module": "dist/avatar.mjs",
+  "unpkg": "dist/avatar.umd.js",
+  "directories": {
+    "lib": "dist",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  }
+}
+```
+
+Now we can create the actual avatar component. 
+
+Rename the lib folder to src:
+
+```bash
+mv lib src
+```
+
+Replace the content in src/avatar.js with:
+
+```javascript
+// src/avatar.js
+
+import React from 'react'
+import './avatar.css'
+
+export const Avatar = () => (
+    <img src="https://source.unsplash.com/user/erondu" alt="Avatar"></img>
+)
+```
+
+Add some styling by creating avatar.css:
+
+```css
+/* src/avatar.css */
+
+img {
+  border-radius: 50%;
+  width:100px
+}
+```
+
+Now you are ready to bundle your fresh new component:
+
+```bash
+lerna run build
+```
+
+This will generate the different bundles with source-maps under the __dist__ folder
+
+### Add a story to demo the component
+
+Create the folder stories and create a file named avatar.story.js.
+
+```bash
+mkdir stories
+touch avatar.stories.js
+```
+
+Add this the the avatar.stories.js
+
+```javascript
+import React from 'react'
+
+import { Avatar } from '../dist/avatar' 
+import '../dist/avatar.css'
+
+export default {
+  component: Avatar,
+  title: 'Design system|Avatar'
+}
+
+export const avatar = () => <Avatar></Avatar>
+```
+>Many tutorials imports the "raw" javascript source file in the stories. I think it is better to use the bundled version instead. You want to make sure the bundled package is working, dont you? ;)
+
+## Tailwind
+
+Too add tailwindcss install the package to root level of the monoropo.
+
+```bash
+npm i -D tailwindcss
+```
+
+## Linting
+
+## Testing
+
