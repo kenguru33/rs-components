@@ -250,8 +250,80 @@ Too add tailwindcss install the package to root level of the monoropo.
 ```bash
 npm i -D tailwindcss
 ```
+Add tailwind to your css.
+
+```css
+/* src/avatar.css */
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+```
+
+Create postcss.config.js ing package folder:
+
+```javascript
+// avatar/postcss.config.js
+
+module.exports = {
+  plugins: [
+    // ...
+    require('tailwindcss'),
+    // ...
+  ]
+}
+```
+
+>Microbundle comes with postcss and autoprefixer included and we use this to process tailwindcss. No need for any installation.
+
+Now we can use tailwindcss in our react component by adding tailwind classes to the classNames property:
+
+```javascript
+import React from 'react'
+import './avatar.css'
+
+export const Avatar = () => (
+    <img className="rounded-full w-12 h-12" src="https://source.unsplash.com/random" alt="Avatar"></img>
+)
+```
+
+## Compress and remove unused css
+
+Too ship only the css we use, we can use a postcss pluging named purgecss.
+
+Install purgecss at root level of the monorepo:
+
+```bash
+npm install @fullhuman/postcss-purgecss --save-dev
+```
+
+Then add purgecss and cssnano to postcss.config.js
+
+```javascript
+module.exports = {
+  plugins: [
+    // ...
+    require('tailwindcss'),
+    require('autoprefixer'),
+    require('@fullhuman/postcss-purgecss')({
+
+      // Specify the paths to all of the template files in your project 
+      content: [
+        './src/**/*.jsx',
+        './src/**/*.js'
+      ],
+      // Include any special characters you're using in this regular expression
+      defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
+    }),
+    require('cssnano')()
+  ]
+}
+
+```
+
+>cssnano is included in microbundle, no need to install.
 
 ## Linting
 
 ## Testing
-
