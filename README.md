@@ -61,3 +61,53 @@ Make sure you are at the root level of the project and run:
 ```bash
 npm i -D microbundle
 ```
+
+## Storybook
+
+To make it easy to develop react components we will use Storybook as a playground for our UI components.
+
+Install Storybook at root level of the project:
+
+```bash
+npm i -D @storybook/react
+```
+
+Also make sure you install all of Storybook peer dependencies:
+
+```bash
+npm install react react-dom --save
+npm install babel-loader @babel/core --save-dev
+```
+
+Add an npm script to package.json at the root level of the project:
+
+```json
+{
+  ...
+  "scripts": {
+    "storybook": "start-storybook"
+  },
+  ...
+}
+```
+
+Now create the Storybook main.js file that will search through all of our packages for 'stories'.
+
+From the root level of the project run:
+
+```bash
+mkdir .storybook
+cd .storybook
+touch main.js
+```
+
+Then add this to main.js:
+
+```javascript
+// ./storybook/main.js
+
+module.exports = {
+   stories: ['../packages/**/*.stories.js']
+}
+```
+
