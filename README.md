@@ -49,3 +49,15 @@ git init
 git add .
 git commit -m "initial lerna setup
 ```
+
+## Bundler
+
+We will use the microbundle as a bundler for all of our packages. This is a very nice wrapper around rollup.js.
+
+Install microbundle:
+
+Make sure you are at the root level of the project and run:
+
+```bash
+npm i -D microbundle
+```
