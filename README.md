@@ -326,4 +326,42 @@ module.exports = {
 
 ## Linting
 
+To activiate code linting install eslint:
+
+```bash
+npm install eslint --save-dev
+npm install eslint-plugin-react --save-dev
+```
+
+Create .eslintrc.json at root level of the monorepo:
+
+```json
+{
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "semi": "error"
+    }
+}
+```
+
+Install Prettier
+
+```bash
+npm i -D eslint-config-prettier eslint-plugin-prettier
+```
+
+Add this to .eslintrc.json
+
+```json
+{
+  "extends": ["plugin:prettier/recommended", "prettier/react"]
+}
+```
+
 ## Testing
