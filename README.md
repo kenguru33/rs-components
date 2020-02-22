@@ -260,10 +260,10 @@ Add tailwind to your css.
 @tailwind utilities;
 ```
 
-Create postcss.config.js ing package folder:
+To be able to share postcss configuration for all packages in monorep, create postcss.config.js folder at root level.
 
 ```javascript
-// avatar/postcss.config.js
+// postcss.config.js
 
 module.exports = {
   plugins: [
@@ -304,6 +304,7 @@ npm install @fullhuman/postcss-purgecss --save-dev
 Then add purgecss and cssnano to postcss.config.js
 
 ```javascript
+// postcss.config.js
 module.exports = {
   plugins: [
     // ...
@@ -336,7 +337,7 @@ Create .eslintrc.json at root level of the monorepo:
 ```json
 {
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 9,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
@@ -366,7 +367,7 @@ Add prettier config by creating .prettierrc
 
 ```json
 {
-  "trailingComma": "es5",
+  "trailingComma": "none",
   "semi": false,
   "singleQuote": true
 }
