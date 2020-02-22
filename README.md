@@ -1,6 +1,7 @@
 # RS-COMPONENTS - Monorepo
 
 ## lerna setup
+
 Initialize a lerna managed monorepo:
 
 ```bash
@@ -15,22 +16,20 @@ lerna.json
 package.json
 ```
 
-- __packages__ is the folder where all the packages you create lives. (This can be custamized in lerna.json)
--  __package.json__ is the root level package definition file. This will list all the packages in the monorepo and contains the shared config among the packages.
-- __lerna.json__ is the lerna config file. (more on lerna.json under)
+- **packages** is the folder where all the packages you create lives. (This can be custamized in lerna.json)
+- **package.json** is the root level package definition file. This will list all the packages in the monorepo and contains the shared config among the packages.
+- **lerna.json** is the lerna config file. (more on lerna.json under)
 
 The lerna.json file initially looks like this:
 
 ```json
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "0.0.0"
 }
 ```
 
-__packages__ key in lerna.json points to the the directory where all the packages lives. Here it has been set to the packages, but you are free name this what ever you like.
+**packages** key in lerna.json points to the the directory where all the packages lives. Here it has been set to the packages, but you are free name this what ever you like.
 
 ## Setup Git
 
@@ -107,7 +106,7 @@ Then add this to main.js:
 // ./storybook/main.js
 
 module.exports = {
-   stories: ['../packages/**/*.stories.js']
+  stories: ['../packages/**/*.stories.js']
 }
 ```
 
@@ -134,16 +133,16 @@ The most important file now is the package.json file. We will have to make some 
 
 You must define this attributes:
 
-- __source__ - your source file (same as 1st arg to microbundle)
-- __main__ - output path for CommonJS/Node
-- __module__ - output path for JS Modules
-- __unpkg__ - optional, for unpkg.com
+- **source** - your source file (same as 1st arg to microbundle)
+- **main** - output path for CommonJS/Node
+- **module** - output path for JS Modules
+- **unpkg** - optional, for unpkg.com
 
->Microbundle uses __source__ and __main__ as input and output paths by default.
+> Microbundle uses **source** and **main** as input and output paths by default.
 
-Also change the __files__ attribute. This is used to tell __npm pulish__ which files to include in a published package. Delete the directories attribute as this is not used. (You can keep it if you like. It is used just for meta info).
+Also change the **files** attribute. This is used to tell **npm pulish** which files to include in a published package. Delete the directories attribute as this is not used. (You can keep it if you like. It is used just for meta info).
 
-Add a __build__ and __watch__ script to the scripts attribute.
+Add a **build** and **watch** script to the scripts attribute.
 
 Your package.json field should look like this now:
 
@@ -163,9 +162,7 @@ Your package.json field should look like this now:
     "lib": "dist",
     "test": "__tests__"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   },
@@ -177,7 +174,7 @@ Your package.json field should look like this now:
 }
 ```
 
-Now we can create the actual avatar component. 
+Now we can create the actual avatar component.
 
 Rename the lib folder to src:
 
@@ -194,7 +191,7 @@ import React from 'react'
 import './avatar.css'
 
 export const Avatar = () => (
-    <img src="https://source.unsplash.com/user/erondu" alt="Avatar"></img>
+  <img src="https://source.unsplash.com/user/erondu" alt="Avatar"></img>
 )
 ```
 
@@ -205,7 +202,7 @@ Add some styling by creating avatar.css:
 
 img {
   border-radius: 50%;
-  width:100px
+  width: 100px;
 }
 ```
 
@@ -215,7 +212,7 @@ Now you are ready to bundle your fresh new component:
 lerna run build
 ```
 
-This will generate the different bundles with source-maps under the __dist__ folder
+This will generate the different bundles with source-maps under the **dist** folder
 
 ### Add a story to demo the component
 
@@ -231,7 +228,7 @@ Add this the the avatar.stories.js
 ```javascript
 import React from 'react'
 
-import { Avatar } from '../dist/avatar' 
+import { Avatar } from '../dist/avatar'
 import '../dist/avatar.css'
 
 export default {
@@ -241,7 +238,8 @@ export default {
 
 export const avatar = () => <Avatar></Avatar>
 ```
->Many tutorials imports the "raw" javascript source file in the stories. I think it is better to use the bundled version instead. You want to make sure the bundled package is working, dont you? ;)
+
+> Many tutorials imports the "raw" javascript source file in the stories. I think it is better to use the bundled version instead. You want to make sure the bundled package is working, dont you? ;)
 
 ## Tailwind
 
@@ -250,6 +248,7 @@ Too add tailwindcss install the package to root level of the monoropo.
 ```bash
 npm i -D tailwindcss
 ```
+
 Add tailwind to your css.
 
 ```css
@@ -269,13 +268,13 @@ Create postcss.config.js ing package folder:
 module.exports = {
   plugins: [
     // ...
-    require('tailwindcss'),
+    require('tailwindcss')
     // ...
   ]
 }
 ```
 
->Microbundle comes with postcss and autoprefixer included and we use this to process tailwindcss. No need for any installation.
+> Microbundle comes with postcss and autoprefixer included and we use this to process tailwindcss. No need for any installation.
 
 Now we can use tailwindcss in our react component by adding tailwind classes to the classNames property:
 
@@ -284,7 +283,11 @@ import React from 'react'
 import './avatar.css'
 
 export const Avatar = () => (
-    <img className="rounded-full w-12 h-12" src="https://source.unsplash.com/random" alt="Avatar"></img>
+  <img
+    className="rounded-full w-12 h-12"
+    src="https://source.unsplash.com/random"
+    alt="Avatar"
+  ></img>
 )
 ```
 
@@ -307,22 +310,17 @@ module.exports = {
     require('tailwindcss'),
     require('autoprefixer'),
     require('@fullhuman/postcss-purgecss')({
-
-      // Specify the paths to all of the template files in your project 
-      content: [
-        './src/**/*.jsx',
-        './src/**/*.js'
-      ],
+      // Specify the paths to all of the template files in your project
+      content: ['./src/**/*.jsx', './src/**/*.js'],
       // Include any special characters you're using in this regular expression
       defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
     }),
     require('cssnano')()
   ]
 }
-
 ```
 
->cssnano is included in microbundle, no need to install.
+> cssnano is included in microbundle, no need to install.
 
 ## Linting
 
@@ -337,16 +335,16 @@ Create .eslintrc.json at root level of the monorepo:
 
 ```json
 {
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "rules": {
-        "semi": "error"
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "rules": {
+    "semi": "error"
+  }
 }
 ```
 
@@ -363,6 +361,7 @@ Add this to .eslintrc.json
   "extends": ["plugin:prettier/recommended", "prettier/react"]
 }
 ```
+
 Add prettier config by creating .prettierrc
 
 ```json

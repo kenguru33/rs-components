@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Avatar } from '../dist/avatar' 
+import { Avatar } from '../dist/avatar'
 import '../dist/avatar.css'
 
 export default {
