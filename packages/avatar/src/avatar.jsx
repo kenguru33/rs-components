@@ -1,9 +1,9 @@
 import React from 'react'
 import './avatar.css'
 
-export const Avatar = () => (
+export const Avatar = (props) => (
   <img
-    className="rounded-full w-12 h-12"
+    className="rs-rounded-full rs-w-8 rs-h-8"
     src="https://source.unsplash.com/random"
     alt="Avatar"
   ></img>

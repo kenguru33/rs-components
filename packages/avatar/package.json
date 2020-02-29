@@ -5,9 +5,10 @@
   "author": "Bernt Anker <bernt.anker@rs.no>",
   "homepage": "",
   "license": "ISC",
-  "source": "src/avatar.js",
+  "source": "src/avatar.jsx",
   "main": "dist/avatar.js",
   "module": "dist/avatar.mjs",
+  "style": "dist/avatar.css",
   "unpkg": "dist/avatar.umd.js",
   "directories": {
     "lib": "dist",
@@ -22,6 +23,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build": "microbundle --jsx React.createElement --external react",
-    "dev": "microbundle watch"
+    "dev": "microbundle watch",
+    "rollup": "rollup -c"
   }
 }
